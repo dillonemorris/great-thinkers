@@ -1,22 +1,18 @@
-# Responses starter app
+# Great Thinkers
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![NextJS](https://img.shields.io/badge/Built_with-NextJS-blue)
 ![OpenAI API](https://img.shields.io/badge/Powered_by-OpenAI_API-orange)
 
-This repository contains a NextJS starter app built on top of the [Responses API](https://platform.openai.com/docs/api-reference/responses).
-It leverages built-in tools ([web search](https://platform.openai.com/docs/guides/tools-web-search?api-mode=responses) and [file search](https://platform.openai.com/docs/guides/tools-file-search)) and implements a chat interface with multi-turn conversation handling.
+Great Thinkers is a project that aims to create an interactive platform for engaging in conversations with history's most influential minds. This repository is currently in early development, building on top of the [Responses API](https://platform.openai.com/docs/api-reference/responses) starter app.
 
-Features:
+## Current Features
 
+- Basic chat interface
 - Multi-turn conversation handling
-- Web search tool configuration
-- Vector store creation & file upload for use with the file search tool
-- Function calling
-- Streaming responses & tool calls
-- Display annotations
-
-This app is meant to be used as a starting point to build a conversational assistant that you can customize to your needs.
+- Web search integration
+- File search capabilities
+- Streaming responses
 
 ## How to use
 
@@ -30,7 +26,7 @@ This app is meant to be used as a starting point to build a conversational assis
    2 options:
 
    - Set the `OPENAI_API_KEY` environment variable [globally in your system](https://platform.openai.com/docs/libraries#create-and-export-an-api-key)
-   - Set the `OPENAI_API_KEY` environment variable in the project: Create a `.env` file at the root of the project and add the following line (see `.env.example` for reference):
+   - Set the `OPENAI_API_KEY` environment variable in the project: Create a `.env` file at the root of the project and add the following line:
 
    ```bash
    OPENAI_API_KEY=<your_api_key>
@@ -39,7 +35,7 @@ This app is meant to be used as a starting point to build a conversational assis
 3. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/openai/openai-responses-starter-app.git
+   git clone https://github.com/yourusername/great-thinkers.git
    ```
 
 4. **Install dependencies:**
@@ -60,7 +56,7 @@ This app is meant to be used as a starting point to build a conversational assis
 
 ## Contributing
 
-You are welcome to open issues or submit PRs to improve this app, however, please note that we may not review all suggestions.
+This project is in early development. Contributions and suggestions are welcome!
 
 ## License
 
