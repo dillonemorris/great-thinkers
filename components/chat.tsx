@@ -3,10 +3,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Message from './message';
 import Annotations from './annotations';
-import { Item } from '@/lib/assistant';
+import { MessageItem } from '@/lib/assistant';
 
 interface ChatProps {
-  items: Item[];
+  items: MessageItem[];
   onSendMessage: (message: string) => void;
 }
 
@@ -40,8 +40,8 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage }) => {
       <div className="flex grow flex-col h-full max-w-[750px] gap-2">
         <div className="h-[90vh] overflow-y-scroll px-10 flex flex-col">
           <div className="mt-auto space-y-5 pt-4">
-            {items.map(item => (
-              <div className="flex flex-col gap-1">
+            {items.map((item, index) => (
+              <div key={item?.id || index} className="flex flex-col gap-1">
                 <Message message={item} />
                 {item.content &&
                   item.content[0].annotations &&

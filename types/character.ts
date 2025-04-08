@@ -11,14 +11,14 @@ export interface Character {
 }
 
 export interface CharacterMessage {
-  type: 'message';
-  role: 'user' | 'assistant' | 'system';
+  type: "message";
+  role: "user" | "assistant" | "system";
   characterId?: string;
   id?: string;
   content: {
-    type: 'input_text' | 'output_text' | 'refusal' | 'output_audio';
+    type: "input_text" | "output_text" | "refusal" | "output_audio";
     annotations?: {
-      type: 'file_citation' | 'url_citation';
+      type: "file_citation" | "url_citation";
       fileId?: string;
       url?: string;
       title?: string;
@@ -27,4 +27,4 @@ export interface CharacterMessage {
     }[];
     text?: string;
   }[];
-} 
+}

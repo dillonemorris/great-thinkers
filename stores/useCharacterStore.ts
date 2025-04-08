@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { Character, CharacterMessage } from '@/types/character';
+import { create } from "zustand";
+import { Character, CharacterMessage } from "@/types/character";
 
 interface CharacterState {
   selectedCharacter: Character | null;
@@ -9,14 +9,15 @@ interface CharacterState {
   clearMessages: () => void;
 }
 
-const useCharacterStore = create<CharacterState>((set) => ({
+const useCharacterStore = create<CharacterState>(set => ({
   selectedCharacter: null,
   messages: [],
-  setSelectedCharacter: (character) => set({ selectedCharacter: character }),
-  addMessage: (message) => set((state) => ({ 
-    messages: [...state.messages, message] 
-  })),
+  setSelectedCharacter: character => set({ selectedCharacter: character }),
+  addMessage: message =>
+    set(state => ({
+      messages: [...state.messages, message],
+    })),
   clearMessages: () => set({ messages: [] }),
 }));
 
-export default useCharacterStore; 
+export default useCharacterStore;

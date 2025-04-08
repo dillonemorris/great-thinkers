@@ -1,18 +1,18 @@
-import { parse } from 'partial-json';
-import useConversationStore from '@/stores/useConversationStore';
-import { Annotation } from '@/components/annotations';
-import { characters } from '@/config/characters';
+import { parse } from "partial-json";
+import useConversationStore from "@/stores/useConversationStore";
+import { Annotation } from "@/components/annotations";
+import { characters } from "@/config/characters";
 
 export interface ContentItem {
-  type: 'input_text' | 'output_text' | 'refusal' | 'output_audio';
+  type: "input_text" | "output_text" | "refusal" | "output_audio";
   annotations?: Annotation[];
   text?: string;
 }
 
 // Message items for storing conversation history matching API shape
 export interface MessageItem {
-  type: 'message';
-  role: 'user' | 'assistant' | 'system';
+  type: "message";
+  role: "user" | "assistant" | "system";
   id?: string;
   content: ContentItem[];
 }
@@ -20,9 +20,9 @@ export interface MessageItem {
 export const handleTurn = async (messages: any[], onMessage: (data: any) => void) => {
   try {
     // Get response from the API (defined in app/api/turn_response/route.ts)
-    const response = await fetch('/api/turn_response', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("/api/turn_response", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         messages: messages,
       }),
@@ -37,7 +37,7 @@ export const handleTurn = async (messages: any[], onMessage: (data: any) => void
     const reader = response.body!.getReader();
     const decoder = new TextDecoder();
     let done = false;
-    let buffer = '';
+    let buffer = "";
 
     while (!done) {
       const { value, done: doneReading } = await reader.read();
@@ -45,13 +45,13 @@ export const handleTurn = async (messages: any[], onMessage: (data: any) => void
       const chunkValue = decoder.decode(value);
       buffer += chunkValue;
 
-      const lines = buffer.split('\n\n');
-      buffer = lines.pop() || '';
+      const lines = buffer.split("\n\n");
+      buffer = lines.pop() || "";
 
       for (const line of lines) {
-        if (line.startsWith('data: ')) {
+        if (line.startsWith("data: ")) {
           const dataStr = line.slice(6);
-          if (dataStr === '[DONE]') {
+          if (dataStr === "[DONE]") {
             done = true;
             break;
           }
@@ -62,15 +62,15 @@ export const handleTurn = async (messages: any[], onMessage: (data: any) => void
     }
 
     // Handle any remaining data in buffer
-    if (buffer && buffer.startsWith('data: ')) {
+    if (buffer && buffer.startsWith("data: ")) {
       const dataStr = buffer.slice(6);
-      if (dataStr !== '[DONE]') {
+      if (dataStr !== "[DONE]") {
         const data = JSON.parse(dataStr);
         onMessage(data);
       }
     }
   } catch (error) {
-    console.error('Error handling turn:', error);
+    console.error("Error handling turn:", error);
   }
 };
 
@@ -81,25 +81,25 @@ export const processMessages = async () => {
   const allConversationItems = [
     // Adding developer prompt as first item in the conversation
     {
-      role: 'developer',
+      role: "developer",
       // TODO: Pass in the currently selected character's prompt
       content: characters[0].prompt,
     },
     ...conversationItems,
   ];
 
-  let assistantMessageContent = '';
+  let assistantMessageContent = "";
 
   await handleTurn(allConversationItems, async ({ event, data }) => {
     switch (event) {
-      case 'response.output_text.delta':
-      case 'response.output_text.annotation.added': {
+      case "response.output_text.delta":
+      case "response.output_text.annotation.added": {
         const { delta, item_id, annotation } = data;
 
-        console.log('event', data);
+        console.log("event", data);
 
-        let partial = '';
-        if (typeof delta === 'string') {
+        let partial = "";
+        if (typeof delta === "string") {
           partial = delta;
         }
         assistantMessageContent += partial;
@@ -108,24 +108,24 @@ export const processMessages = async () => {
         const lastItem = chatMessages[chatMessages.length - 1];
         if (
           !lastItem ||
-          lastItem.type !== 'message' ||
-          lastItem.role !== 'assistant' ||
+          lastItem.type !== "message" ||
+          lastItem.role !== "assistant" ||
           (lastItem.id && lastItem.id !== item_id)
         ) {
           chatMessages.push({
-            type: 'message',
-            role: 'assistant',
+            type: "message",
+            role: "assistant",
             id: item_id,
             content: [
               {
-                type: 'output_text',
+                type: "output_text",
                 text: assistantMessageContent,
               },
             ],
           } as MessageItem);
         } else {
           const contentItem = lastItem.content[0];
-          if (contentItem && contentItem.type === 'output_text') {
+          if (contentItem && contentItem.type === "output_text") {
             contentItem.text = assistantMessageContent;
             if (annotation) {
               contentItem.annotations = [...(contentItem.annotations ?? []), annotation];
@@ -137,28 +137,28 @@ export const processMessages = async () => {
         break;
       }
 
-      case 'response.output_item.added': {
+      case "response.output_item.added": {
         const { item } = data || {};
         // New item coming in
         if (!item || !item.type) {
           break;
         }
-        const text = item.content?.text || '';
+        const text = item.content?.text || "";
         chatMessages.push({
-          type: 'message',
-          role: 'assistant',
+          type: "message",
+          role: "assistant",
           content: [
             {
-              type: 'output_text',
+              type: "output_text",
               text,
             },
           ],
         });
         conversationItems.push({
-          role: 'assistant',
+          role: "assistant",
           content: [
             {
-              type: 'output_text',
+              type: "output_text",
               text,
             },
           ],
@@ -168,7 +168,7 @@ export const processMessages = async () => {
         break;
       }
 
-      case 'response.output_item.done': {
+      case "response.output_item.done": {
         // After output item is done
         const { item } = data || {};
         conversationItems.push(item);

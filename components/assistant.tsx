@@ -1,9 +1,9 @@
-'use client';
-import React from 'react';
-import Chat from './chat';
-import useConversationStore from '@/stores/useConversationStore';
-import { processMessages } from '@/lib/assistant';
-import { CharacterMessage } from '@/types/character';
+"use client";
+import React from "react";
+import Chat from "./chat";
+import useConversationStore from "@/stores/useConversationStore";
+import { processMessages } from "@/lib/assistant";
+import { CharacterMessage } from "@/types/character";
 
 export default function Assistant() {
   const { chatMessages, addConversationItem, addChatMessage } = useConversationStore();
@@ -12,13 +12,13 @@ export default function Assistant() {
     if (!message.trim()) return;
 
     const userItem: any = {
-      type: 'message',
-      role: 'user',
+      type: "message",
+      role: "user",
       // characterId: selectedCharacter.id,
-      content: [{ type: 'input_text', text: message.trim() }],
+      content: [{ type: "input_text", text: message.trim() }],
     };
     const userMessage: any = {
-      role: 'user',
+      role: "user",
       content: message.trim(),
     };
 
@@ -27,7 +27,7 @@ export default function Assistant() {
       addChatMessage(userItem);
       await processMessages();
     } catch (error) {
-      console.error('Error processing message:', error);
+      console.error("Error processing message:", error);
     }
   };
 

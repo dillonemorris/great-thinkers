@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Character } from '@/types/character';
-import Image from 'next/image';
+import { Character } from "@/types/character";
+import Image from "next/image";
 
 interface CharacterBioProps {
   character: Character;
@@ -30,11 +30,8 @@ export default function CharacterBio({ character }: CharacterBioProps) {
           <div className="mt-4">
             <h3 className="text-lg font-semibold mb-2">Expertise</h3>
             <div className="flex flex-wrap gap-2">
-              {character.expertise.map((skill) => (
-                <span
-                  key={skill}
-                  className="bg-gray-100 px-3 py-1 rounded-full text-sm"
-                >
+              {character.expertise.map(skill => (
+                <span key={skill} className="bg-gray-100 px-3 py-1 rounded-full text-sm">
                   {skill}
                 </span>
               ))}
@@ -44,4 +41,4 @@ export default function CharacterBio({ character }: CharacterBioProps) {
       </div>
     </div>
   );
-} 
+}

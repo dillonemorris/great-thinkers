@@ -1,6 +1,6 @@
-'use client';
-import Assistant from '@/components/assistant';
-import { Menu } from 'lucide-react';
+"use client";
+import Assistant from "@/components/assistant";
+import { Menu } from "lucide-react";
 
 export default function Main() {
   return (

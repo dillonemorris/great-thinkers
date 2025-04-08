@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Character } from '@/types/character';
-import { Button } from './ui/button';
+import { Character } from "@/types/character";
+import { Button } from "./ui/button";
 
 interface ConversationStartersProps {
   character: Character;
@@ -26,4 +26,4 @@ export default function ConversationStarters({ character, onSelect }: Conversati
       </div>
     </div>
   );
-} 
+}

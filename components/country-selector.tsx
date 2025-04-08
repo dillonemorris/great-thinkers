@@ -14,11 +14,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export const ISO_3166_ALPHA_2_CODES = new Set([
   "AF",
@@ -272,11 +268,12 @@ export const ISO_3166_ALPHA_2_CODES = new Set([
   "ZW",
 ]);
 
-const countries = Array.from(ISO_3166_ALPHA_2_CODES).map((code) => ({
+const countries = Array.from(ISO_3166_ALPHA_2_CODES).map(code => ({
   value: code,
   label: code,
 }));
 
+// TODO: We probably want to render this at some point
 export default function CountrySelector({
   value,
   onChange,
@@ -297,7 +294,7 @@ export default function CountrySelector({
             className="w-full justify-between text-muted-foreground"
           >
             {value
-              ? countries.find((country) => country.value === value)?.label
+              ? countries.find(country => country.value === value)?.label
               : "Select country..."}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
@@ -308,11 +305,11 @@ export default function CountrySelector({
             <CommandList>
               <CommandEmpty>No country found.</CommandEmpty>
               <CommandGroup>
-                {countries.map((country) => (
+                {countries.map(country => (
                   <CommandItem
                     key={country.value}
                     value={country.value}
-                    onSelect={(currentValue) => {
+                    onSelect={currentValue => {
                       onChange(currentValue === value ? "" : currentValue);
                       setOpen(false);
                     }}
