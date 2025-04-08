@@ -1,7 +1,6 @@
-import { parse } from "partial-json";
 import useConversationStore from "@/stores/useConversationStore";
 import { Annotation } from "@/components/annotations";
-import { characters } from "@/config/characters";
+import useCharacterStore from "@/stores/useCharacterStore";
 
 export interface ContentItem {
   type: "input_text" | "output_text" | "refusal" | "output_audio";
@@ -78,12 +77,14 @@ export const processMessages = async () => {
   const { chatMessages, conversationItems, setChatMessages, setConversationItems } =
     useConversationStore.getState();
 
+  const { selectedCharacter } = useCharacterStore.getState();
+
   const allConversationItems = [
     // Adding developer prompt as first item in the conversation
     {
       role: "developer",
       // TODO: Pass in the currently selected character's prompt
-      content: characters[0].prompt,
+      content: selectedCharacter?.prompt,
     },
     ...conversationItems,
   ];
@@ -95,8 +96,6 @@ export const processMessages = async () => {
       case "response.output_text.delta":
       case "response.output_text.annotation.added": {
         const { delta, item_id, annotation } = data;
-
-        console.log("event", data);
 
         let partial = "";
         if (typeof delta === "string") {

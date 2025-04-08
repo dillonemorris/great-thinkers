@@ -1,18 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import { Character } from "@/types/character";
 import { characters } from "@/config/characters";
 import Image from "next/image";
 import { Card, CardContent } from "./ui/card";
-import { Button } from "./ui/button";
 
 interface CharacterSelectorProps {
-  onSelect: (character: Character) => void;
+  onSelectAction: (character: Character) => void;
   selectedCharacter?: Character;
 }
 
-export default function CharacterSelector({ onSelect, selectedCharacter }: CharacterSelectorProps) {
+export default function CharacterSelector({ onSelectAction, selectedCharacter }: CharacterSelectorProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
       {characters.map(character => (
@@ -21,7 +19,7 @@ export default function CharacterSelector({ onSelect, selectedCharacter }: Chara
           className={`cursor-pointer transition-all ${
             selectedCharacter?.id === character.id ? "ring-2 ring-blue-500" : "hover:shadow-lg"
           }`}
-          onClick={() => onSelect(character)}
+          onClick={() => onSelectAction(character)}
         >
           <CardContent className="p-4">
             <div className="flex flex-col items-center text-center">
