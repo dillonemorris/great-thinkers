@@ -11,23 +11,17 @@ const Message: React.FC<MessageProps> = ({ message }) => {
     <div className="text-sm">
       {message.role === "user" ? (
         <div className="flex justify-end">
-          <div>
-            <div className="ml-4 rounded-[16px] px-4 py-2 md:ml-24 bg-[#ededed] text-stone-900  font-light">
-              <div>
-                <div>
-                  <ReactMarkdown>{message.content[0].text as string}</ReactMarkdown>
-                </div>
-              </div>
+          <div className="max-w-[80%]">
+            <div className="rounded-lg border border-stone-200 bg-[#E8F1FB] px-4 py-2 text-black">
+              <ReactMarkdown>{message.content[0].text as string}</ReactMarkdown>
             </div>
           </div>
         </div>
       ) : (
-        <div className="flex flex-col">
-          <div className="flex">
-            <div className="mr-4 rounded-[16px] px-4 py-2 md:mr-24 text-black bg-white font-light">
-              <div>
-                <ReactMarkdown>{message.content[0].text as string}</ReactMarkdown>
-              </div>
+        <div className="flex">
+          <div className="max-w-[80%]">
+            <div className="rounded-lg border border-stone-200 bg-[#ededed] px-4 py-2 text-black">
+              <ReactMarkdown>{message.content[0].text as string}</ReactMarkdown>
             </div>
           </div>
         </div>

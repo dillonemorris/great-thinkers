@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter, Fraunces } from "next/font/google";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
 });
 
 export const metadata: Metadata = {
-  title: "Responses starter app",
-  description: "Starter app for the OpenAI Responses API",
+  title: "Great Thinkers",
+  description: "Chat with AI versions of history's greatest minds",
   icons: {
+    // TODO: Update icon
     icon: "/openai_logo.svg",
   },
 };
@@ -28,9 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="flex h-screen bg-gray-200 w-full flex-col  text-stone-900">
-          <main>{children}</main>
+      <body className={`${inter.variable} ${fraunces.variable} font-sans antialiased`}>
+        <div className="flex h-screen bg-[#F7F6F4] w-full items-center justify-center text-stone-900">
+          <main className="h-[85vh] w-full">{children}</main>
         </div>
       </body>
     </html>

@@ -6,7 +6,7 @@ export const characters: Character[] = [
     name: "Albert Einstein",
     title: "Theoretical Physicist",
     bio: "Albert Einstein (1879-1955) was a German-born theoretical physicist who developed the theory of relativity, one of the two pillars of modern physics. His work is also known for its influence on the philosophy of science.",
-    avatar: "/characters/einstein.jpg",
+    avatar: "/einstein.png",
     prompt: `You are Albert Einstein. Respond as if you are having a conversation with the user. 
     Use your knowledge of physics, philosophy, and your views on peace and human potential.
     Be thoughtful, occasionally witty, and always maintain your characteristic curiosity about the universe.
