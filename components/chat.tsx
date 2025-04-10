@@ -20,6 +20,8 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
   // This state is used to provide better user experience for non-English IMEs such as Japanese
   const [isComposing, setIsComposing] = useState(false);
 
+  const hasUserSentMessage = chatMessages.some(message => message.role === "user");
+
   const scrollToBottom = () => {
     itemsEndRef.current?.scrollIntoView({ behavior: "instant" });
   };
@@ -35,27 +37,27 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
     [onSendMessage, inputMessageText, isComposing]
   );
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatMessages]);
-
   const handleConversationStarterClick = (starter: string) => {
     onSendMessage(starter);
     setinputMessageText("");
   };
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatMessages]);
+
   return (
     <div className="flex h-full justify-center">
-      <div className="flex h-full w-full max-w-[1200px]">
+      <div className="flex h-full w-full max-w-[940px]">
         {/* Left sidebar */}
-        <div className="w-[320px] pr-4 flex h-full">
+        <div className="w-[320px] pr-4 hidden md:flex h-full">
           <div className="overflow-y-auto h-full">
             <CharacterSelector onSelectAction={setSelectedCharacter} />
           </div>
         </div>
 
         {/* Chat area */}
-        <div className="flex-1 flex flex-col border-2 border-border rounded-lg">
+        <div className="flex-1 flex flex-col border-2 border-border rounded-lg w-full">
           <div className="border-b-2 border-border p-4 flex items-center gap-2">
             <div className="relative w-12 h-12">
               <Image
@@ -85,6 +87,9 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
 
           {/* Input area */}
           <div className="border-t-2 border-border p-4">
+            {!hasUserSentMessage ? (
+              <ConversationStarters onConversationStartClick={handleConversationStarterClick} />
+            ) : null}
             <div className="flex gap-2">
               <input
                 type="text"
@@ -109,27 +114,31 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
             </div>
           </div>
         </div>
-
-        {/* Right sidebar - Conversation Starters */}
-        <div className="w-[320px] pl-4 h-full">
-          <div className="overflow-y-auto border-2 border-border rounded-lg p-4 h-full">
-            <h3 className="text-lg font-medium mb-2">Conversation Starters</h3>
-            <ul className="space-y-3">
-              {selectedCharacter?.conversationStarters.map((starter, index) => (
-                <li key={index}>
-                  <button
-                    onClick={() => handleConversationStarterClick(starter)}
-                    className="text-left text-sm w-full p-2 rounded bg-[#ededed] cursor-pointer transition-all hover:ring-2 hover:ring-stone-300"
-                  >
-                    {starter}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
+  );
+};
+
+type ConversationStarersProps = {
+  onConversationStartClick: (starter: string) => void;
+};
+
+const ConversationStarters = ({ onConversationStartClick }: ConversationStarersProps) => {
+  const { selectedCharacter } = useCharacterStore();
+
+  return (
+    <ul className="space-y-3 pb-4 flex flex-col">
+      {selectedCharacter?.conversationStarters.map((starter, index) => (
+        <li key={index}>
+          <button
+            onClick={() => onConversationStartClick(starter)}
+            className="text-left text-sm  p-2 rounded bg-[#ededed] cursor-pointer transition-all hover:ring-2 hover:ring-stone-300"
+          >
+            {starter}
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 };
 

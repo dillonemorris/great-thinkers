@@ -1,8 +1,17 @@
 "use client";
+import React from "react";
 import ThinkersChat from "@/components/thinkers-chat";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import CharacterSelector from "@/components/character-selector";
+import useCharacterStore from "@/stores/useCharacterStore";
+import { VisuallyHidden } from "@reach/visually-hidden";
 
 export default function Main() {
+  const [open, setOpen] = React.useState(false);
+  const { setSelectedCharacter } = useCharacterStore();
+
   return (
     <div className="flex h-full flex-col items-center">
       <div className="text-center mb-8">
@@ -16,10 +25,24 @@ export default function Main() {
         <ThinkersChat />
       </div>
 
-      {/* Hamburger menu for small screens */}
-      <div className="absolute top-4 right-4 md:hidden">
-        <Menu size={24} />
-      </div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger>
+          <Button
+            aria-expanded={open}
+            size="icon"
+            variant={"ghost"}
+            className="absolute top-4 left-4 md:hidden"
+          >
+            {open ? <X /> : <Menu size={24} />}
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="top-[35%]">
+          <VisuallyHidden>
+            <DialogTitle>Character Selector</DialogTitle>
+          </VisuallyHidden>
+          <CharacterSelector onSelectAction={setSelectedCharacter} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
