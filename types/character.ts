@@ -8,6 +8,7 @@ export interface Character {
   conversationStarters: string[];
   era: string;
   expertise: string[];
+  initialMessage: string;
 }
 
 export interface CharacterMessage {

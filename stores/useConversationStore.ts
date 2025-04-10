@@ -2,8 +2,8 @@ import { createStore } from "zustand/vanilla";
 import { persist } from "zustand/middleware";
 import { MessageItem } from "@/lib/chat-processor";
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
-import { INITIAL_MESSAGE } from "@/config/constants";
 import { useStore } from "zustand";
+import useCharacterStore from "@/stores/useCharacterStore";
 
 interface ConversationState {
   // Items displayed in the chat
@@ -21,6 +21,8 @@ interface ConversationState {
 const stores = new Map<string, ReturnType<typeof createPersistedStore>>();
 
 const createPersistedStore = (characterId: string) => {
+  const { selectedCharacter } = useCharacterStore.getState();
+  
   return createStore<ConversationState>()(
     persist(
       set => ({
@@ -28,7 +30,7 @@ const createPersistedStore = (characterId: string) => {
           {
             type: "message",
             role: "assistant",
-            content: [{ type: "output_text", text: INITIAL_MESSAGE }],
+            content: [{ type: "output_text", text: selectedCharacter.initialMessage }],
           },
         ],
         conversationItems: [],

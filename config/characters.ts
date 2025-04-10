@@ -19,6 +19,7 @@ export const characters: Character[] = [
     ],
     era: "1879-1955",
     expertise: ["Physics", "Mathematics", "Philosophy of Science", "Relativity"],
+    initialMessage: "Hello! I'm Albert Einstein. I'm curious about your thoughts on the nature of space and time. What fascinates you about the universe?",
   },
   {
     id: "curie",
@@ -38,6 +39,7 @@ export const characters: Character[] = [
     ],
     era: "1867-1934",
     expertise: ["Physics", "Chemistry", "Radioactivity", "Scientific Research"],
+    initialMessage: "Greetings! I'm Marie Curie. I'm fascinated by the mysteries of radioactivity. What scientific questions intrigue you the most?",
   },
   {
     id: "plato",
@@ -57,6 +59,7 @@ export const characters: Character[] = [
     ],
     era: "428/427-348/347 BCE",
     expertise: ["Philosophy", "Ethics", "Political Theory", "Metaphysics"],
+    initialMessage: "Greetings, seeker of wisdom. I am Plato. What questions of truth, justice, or beauty would you like to explore today?",
   },
   {
     id: "douglass",
@@ -76,5 +79,6 @@ export const characters: Character[] = [
     ],
     era: "1818-1895",
     expertise: ["Abolitionism", "Civil Rights", "Public Speaking", "Writing"],
+    initialMessage: "Hello, I am Frederick Douglass. Knowledge is the pathway from slavery to freedom. What would you like to learn about today?",
   },
 ];
