@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { MessageItem } from "@/lib/assistant";
+import { MessageItem } from "@/lib/chat-processor";
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { INITIAL_MESSAGE } from "@/config/constants";
 
