@@ -1,4 +1,4 @@
-import { MessageItem } from "@/lib/assistant";
+import { MessageItem } from "@/lib/chat-processor";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 

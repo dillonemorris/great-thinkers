@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Message from "./message";
 import Annotations from "./annotations";
-import { MessageItem } from "@/lib/assistant";
+import { MessageItem } from "@/lib/chat-processor";
 import useCharacterStore from "@/stores/useCharacterStore";
 import CharacterSelector from "@/components/character-selector";
 
@@ -31,7 +32,7 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage }) => {
         setinputMessageText("");
       }
     },
-    [onSendMessage, inputMessageText]
+    [onSendMessage, inputMessageText, isComposing]
   );
 
   useEffect(() => {
@@ -55,8 +56,16 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage }) => {
 
         {/* Chat area */}
         <div className="flex-1 flex flex-col border-2 border-border rounded-lg">
-          <div className="border-b-2 border-border p-4">
-            <h2 className="text-xl font-medium">{selectedCharacter?.name}</h2>
+          <div className="border-b-2 border-border p-4 flex items-center gap-2">
+            <div className="relative w-12 h-12">
+              <Image
+                src={selectedCharacter.avatar}
+                alt={selectedCharacter.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <h2 className="text-xl font-medium">{selectedCharacter.name}</h2>
           </div>
 
           {/* Messages */}
@@ -105,12 +114,12 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage }) => {
         <div className="w-[320px] pl-4 h-full">
           <div className="overflow-y-auto border-2 border-border rounded-lg p-4 h-full">
             <h3 className="text-lg font-medium mb-2">Conversation Starters</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {selectedCharacter?.conversationStarters.map((starter, index) => (
                 <li key={index}>
                   <button
                     onClick={() => handleConversationStarterClick(starter)}
-                    className="text-left w-full p-2 rounded hover:bg-gray-100 transition-colors"
+                    className="text-left text-sm w-full p-2 rounded bg-[#ededed] cursor-pointer transition-all hover:ring-2 hover:ring-stone-300"
                   >
                     {starter}
                   </button>

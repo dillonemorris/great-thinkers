@@ -1,5 +1,5 @@
 "use client";
-import Assistant from "@/components/assistant";
+import ThinkersChat from "@/components/thinkers-chat";
 import { Menu } from "lucide-react";
 
 export default function Main() {
@@ -7,11 +7,13 @@ export default function Main() {
     <div className="flex h-full flex-col items-center">
       <div className="text-center mb-8">
         <h1 className="font-serif text-5xl tracking-tight font-medium mb-3">Great Thinkers</h1>
-        <p className="text-lg text-stone-600">Chat with AI versions of history's greatest minds.</p>
+        <p className="text-lg text-stone-600">
+          {"Chat with AI versions of history's greatest minds."}
+        </p>
       </div>
 
       <div className="flex-1 w-full max-w-[1200px] h-[calc(100vh-320px)]">
-        <Assistant />
+        <ThinkersChat />
       </div>
 
       {/* Hamburger menu for small screens */}

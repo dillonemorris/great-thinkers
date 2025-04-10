@@ -3,15 +3,15 @@ import { Character, CharacterMessage } from "@/types/character";
 import { characters } from "@/config/characters";
 
 interface CharacterState {
-  selectedCharacter: Character | null;
+  selectedCharacter: Character;
   messages: CharacterMessage[];
-  setSelectedCharacter: (character: Character | null) => void;
+  setSelectedCharacter: (character: Character) => void;
   addMessage: (message: CharacterMessage) => void;
   clearMessages: () => void;
 }
 
-// Get Einstein as the default character
-const defaultCharacter = characters.find(char => char.id === "einstein") || null;
+const defaultCharacterId = "einstein";
+const defaultCharacter = characters.find(char => char.id === defaultCharacterId) as Character;
 
 const useCharacterStore = create<CharacterState>(set => ({
   selectedCharacter: defaultCharacter,

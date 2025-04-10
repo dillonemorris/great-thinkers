@@ -2,10 +2,9 @@
 import React from "react";
 import Chat from "./chat";
 import useConversationStore from "@/stores/useConversationStore";
-import { processMessages } from "@/lib/assistant";
+import { processMessages } from "@/lib/chat-processor";
 
-// TODO: Rename
-export default function Assistant() {
+export default function ThinkersChat() {
   const { chatMessages, addConversationItem, addChatMessage } = useConversationStore();
 
   const handleSendMessage = async (message: string) => {
@@ -31,8 +30,8 @@ export default function Assistant() {
   };
 
   return (
-    <div className="h-full">
+    <div className="h-full p-2">
       <Chat items={chatMessages} onSendMessage={handleSendMessage} />
     </div>
   );
-}
+} 
