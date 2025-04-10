@@ -36,12 +36,7 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
     },
     [onSendMessage, inputMessageText, isComposing]
   );
-
-  const handleConversationStarterClick = (starter: string) => {
-    onSendMessage(starter);
-    setinputMessageText("");
-  };
-
+  
   useEffect(() => {
     scrollToBottom();
   }, [chatMessages]);
@@ -88,7 +83,7 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
           {/* Input area */}
           <div className="border-t-2 border-border p-4">
             {!hasUserSentMessage ? (
-              <ConversationStarters onConversationStartClick={handleConversationStarterClick} />
+              <ConversationStarters onConversationStartClick={setinputMessageText} />
             ) : null}
             <div className="flex gap-2">
               <input

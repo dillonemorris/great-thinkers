@@ -26,7 +26,7 @@ export default function Main() {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <Button
             aria-expanded={open}
             size="icon"
