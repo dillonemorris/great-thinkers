@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
 import Chat from "./chat";
-import useConversationStore from "@/stores/useConversationStore";
+import { useConversationStore } from "@/stores/useConversationStore";
 import { processMessages } from "@/lib/chat-processor";
+import useCharacterStore from "@/stores/useCharacterStore";
 
 export default function ThinkersChat() {
-  const { chatMessages, addConversationItem, addChatMessage } = useConversationStore();
+  const { selectedCharacter } = useCharacterStore();
+  const { addConversationItem, addChatMessage } = useConversationStore(selectedCharacter.id);
 
   const handleSendMessage = async (message: string) => {
     if (!message.trim()) return;
@@ -31,7 +33,7 @@ export default function ThinkersChat() {
 
   return (
     <div className="h-full p-2">
-      <Chat items={chatMessages} onSendMessage={handleSendMessage} />
+      <Chat onSendMessage={handleSendMessage} />
     </div>
   );
-} 
+}

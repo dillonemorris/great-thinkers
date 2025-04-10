@@ -1,6 +1,6 @@
-import useConversationStore from "@/stores/useConversationStore";
 import { Annotation } from "@/components/annotations";
 import useCharacterStore from "@/stores/useCharacterStore";
+import { getConversationStore } from "@/stores/useConversationStore";
 
 export interface ContentItem {
   type: "input_text" | "output_text" | "refusal" | "output_audio";
@@ -74,13 +74,12 @@ export const handleTurn = async (messages: any[], onMessage: (data: any) => void
 };
 
 export const processMessages = async () => {
-  const { chatMessages, conversationItems, setChatMessages, setConversationItems } =
-    useConversationStore.getState();
-
   const { selectedCharacter } = useCharacterStore.getState();
+  const store = getConversationStore(selectedCharacter.id);
+
+  const { chatMessages, conversationItems } = store.getState();
 
   const allConversationItems = [
-    // Adding developer prompt as first item in the conversation
     {
       role: "developer",
       content: selectedCharacter?.prompt,
@@ -110,17 +109,22 @@ export const processMessages = async () => {
           lastItem.role !== "assistant" ||
           (lastItem.id && lastItem.id !== item_id)
         ) {
-          chatMessages.push({
-            type: "message",
-            role: "assistant",
-            id: item_id,
-            content: [
+          store.setState({
+            chatMessages: [
+              ...chatMessages,
               {
-                type: "output_text",
-                text: assistantMessageContent,
+                type: "message",
+                role: "assistant",
+                id: item_id,
+                content: [
+                  {
+                    type: "output_text",
+                    text: assistantMessageContent,
+                  },
+                ],
               },
             ],
-          } as MessageItem);
+          });
         } else {
           const contentItem = lastItem.content[0];
           if (contentItem && contentItem.type === "output_text") {
@@ -128,53 +132,45 @@ export const processMessages = async () => {
             if (annotation) {
               contentItem.annotations = [...(contentItem.annotations ?? []), annotation];
             }
+            store.setState({ chatMessages: [...chatMessages] });
           }
         }
-
-        setChatMessages([...chatMessages]);
         break;
       }
 
       case "response.output_item.added": {
         const { item } = data || {};
-        // New item coming in
         if (!item || !item.type) {
           break;
         }
         const text = item.content?.text || "";
-        chatMessages.push({
-          type: "message",
-          role: "assistant",
-          content: [
+        store.setState({
+          chatMessages: [
+            ...chatMessages,
             {
-              type: "output_text",
-              text,
+              type: "message",
+              role: "assistant",
+              content: [{ type: "output_text", text }],
+            },
+          ],
+          conversationItems: [
+            ...conversationItems,
+            {
+              role: "assistant",
+              content: [{ type: "output_text", text }],
             },
           ],
         });
-        conversationItems.push({
-          role: "assistant",
-          content: [
-            {
-              type: "output_text",
-              text,
-            },
-          ],
-        });
-        setChatMessages([...chatMessages]);
-        setConversationItems([...conversationItems]);
         break;
       }
 
       case "response.output_item.done": {
-        // After output item is done
         const { item } = data || {};
-        conversationItems.push(item);
-        setConversationItems([...conversationItems]);
+        store.setState({
+          conversationItems: [...conversationItems, item],
+        });
         break;
       }
-
-      // Handle other events as needed
     }
   });
 };

@@ -4,17 +4,17 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Message from "./message";
 import Annotations from "./annotations";
-import { MessageItem } from "@/lib/chat-processor";
 import useCharacterStore from "@/stores/useCharacterStore";
 import CharacterSelector from "@/components/character-selector";
+import { useConversationStore } from "@/stores/useConversationStore";
 
 interface ChatProps {
-  items: MessageItem[];
   onSendMessage: (message: string) => void;
 }
 
-const Chat: React.FC<ChatProps> = ({ items, onSendMessage }) => {
+const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
   const { selectedCharacter, setSelectedCharacter } = useCharacterStore();
+  const { chatMessages } = useConversationStore(selectedCharacter.id);
   const itemsEndRef = useRef<HTMLDivElement>(null);
   const [inputMessageText, setinputMessageText] = useState<string>("");
   // This state is used to provide better user experience for non-English IMEs such as Japanese
@@ -37,7 +37,7 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage }) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [items]);
+  }, [chatMessages]);
 
   const handleConversationStarterClick = (starter: string) => {
     onSendMessage(starter);
@@ -70,7 +70,7 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage }) => {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            {items.map((item, index) => (
+            {chatMessages.map((item, index) => (
               <div key={item?.id || index} className="flex flex-col gap-2">
                 <Message message={item} />
                 {item.content &&
