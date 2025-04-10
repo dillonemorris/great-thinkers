@@ -10,7 +10,7 @@ export default function Main() {
         <p className="text-lg text-stone-600">Chat with AI versions of history's greatest minds.</p>
       </div>
 
-      <div className="flex-1 w-full max-w-[1200px]">
+      <div className="flex-1 w-full max-w-[1200px] h-[calc(100vh-320px)]">
         <Assistant />
       </div>
 

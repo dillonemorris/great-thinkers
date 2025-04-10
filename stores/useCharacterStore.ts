@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Character, CharacterMessage } from "@/types/character";
+import { characters } from "@/config/characters";
 
 interface CharacterState {
   selectedCharacter: Character | null;
@@ -9,8 +10,11 @@ interface CharacterState {
   clearMessages: () => void;
 }
 
+// Get Einstein as the default character
+const defaultCharacter = characters.find(char => char.id === "einstein") || null;
+
 const useCharacterStore = create<CharacterState>(set => ({
-  selectedCharacter: null,
+  selectedCharacter: defaultCharacter,
   messages: [],
   setSelectedCharacter: character => set({ selectedCharacter: character }),
   addMessage: message =>

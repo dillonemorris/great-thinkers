@@ -38,12 +38,19 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage }) => {
     scrollToBottom();
   }, [items]);
 
+  const handleConversationStarterClick = (starter: string) => {
+    onSendMessage(starter);
+    setinputMessageText("");
+  };
+
   return (
     <div className="flex h-full justify-center">
-      <div className="flex h-full w-full max-w-[900px]">
+      <div className="flex h-full w-full max-w-[1200px]">
         {/* Left sidebar */}
-        <div className="w-[320px] flex pr-4">
-          <CharacterSelector onSelectAction={setSelectedCharacter} />
+        <div className="w-[320px] pr-4 flex h-full">
+          <div className="overflow-y-auto h-full">
+            <CharacterSelector onSelectAction={setSelectedCharacter} />
+          </div>
         </div>
 
         {/* Chat area */}
@@ -91,6 +98,25 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage }) => {
                 Send
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* Right sidebar - Conversation Starters */}
+        <div className="w-[320px] pl-4 h-full">
+          <div className="overflow-y-auto border-2 border-border rounded-lg p-4 h-full">
+            <h3 className="text-lg font-medium mb-2">Conversation Starters</h3>
+            <ul className="space-y-2">
+              {selectedCharacter?.conversationStarters.map((starter, index) => (
+                <li key={index}>
+                  <button
+                    onClick={() => handleConversationStarterClick(starter)}
+                    className="text-left w-full p-2 rounded hover:bg-gray-100 transition-colors"
+                  >
+                    {starter}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
