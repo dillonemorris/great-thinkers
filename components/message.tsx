@@ -8,7 +8,7 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({ message }) => {
   return (
-    <div className="text-sm">
+    <div className="text-sm md:text-md">
       {message.role === "user" ? (
         <div className="flex justify-end">
           <div className="max-w-[80%]">

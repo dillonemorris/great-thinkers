@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   title: "Great Thinkers",
   description: "Chat with AI versions of history's greatest minds",
   icons: {
-    // TODO: Update icon
-    icon: "/openai_logo.svg",
+    // TODO: Update icon`
+    icon: "logo.svg",
   },
 };
 

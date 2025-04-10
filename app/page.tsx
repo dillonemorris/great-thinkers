@@ -14,9 +14,11 @@ export default function Main() {
 
   return (
     <div className="flex h-full flex-col items-center">
-      <div className="text-center mb-8">
-        <h1 className="font-serif text-5xl tracking-tight font-medium mb-3">Great Thinkers</h1>
-        <p className="text-lg text-stone-600">
+      <div className="text-center mb-4 md:mb-8">
+        <h1 className="font-serif text-3xl md:text-5xl tracking-tight font-medium md:mb-3">
+          Great Thinkers
+        </h1>
+        <p className="text-md md:text-lg text-stone-600">
           {"Chat with AI versions of history's greatest minds."}
         </p>
       </div>
