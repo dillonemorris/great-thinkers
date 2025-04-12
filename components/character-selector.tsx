@@ -11,7 +11,7 @@ interface CharacterSelectorProps {
 
 export default function CharacterSelector({ onSelectAction }: CharacterSelectorProps) {
   return (
-    <div className="border-2 border-border rounded-lg flex flex-col gap-4 px-2 py-2 w-full h-full overflow-y-auto">
+    <>
       {characters.map(character => (
         <Card
           key={character.id}
@@ -33,6 +33,6 @@ export default function CharacterSelector({ onSelectAction }: CharacterSelectorP
           </CardContent>
         </Card>
       ))}
-    </div>
+    </>
   );
 }

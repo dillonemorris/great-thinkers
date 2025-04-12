@@ -1,16 +1,32 @@
 "use client";
 import React from "react";
 import ThinkersChat from "@/components/thinkers-chat";
-import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import { Maximize, Menu, Minimize, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import CharacterSelector from "@/components/character-selector";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import useCharacterStore from "@/stores/useCharacterStore";
+import { useFullscreenStore } from "@/stores/useFullscreenStore";
 import { VisuallyHidden } from "@reach/visually-hidden";
+import { cn } from "@/lib/utils";
+import { Card } from "@/components/ui/card";
+import { characters } from "@/config/characters";
 
 export default function Main() {
+  const [isHydrated, setIsHydrated] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const { setSelectedCharacter } = useCharacterStore();
+  const { isFullScreenMode, toggleFullScreenMode } = useFullscreenStore();
+
+  // Wait for hydration to complete
+  React.useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  // Don't render anything until hydration is complete
+  if (!isHydrated) {
+    return null; // or a loading skeleton if you prefer
+  }
 
   return (
     <div className="flex h-full flex-col items-center">
@@ -23,28 +39,55 @@ export default function Main() {
         </p>
       </div>
 
-      <div className="flex-1 w-full max-w-[1200px] h-[calc(100vh-320px)]">
+      <div className="flex-1 w-full h-[calc(100vh-320px)]">
         <ThinkersChat />
       </div>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <VisuallyHidden>
+          <SheetTitle>Character Selector</SheetTitle>
+        </VisuallyHidden>
+        <SheetTrigger asChild>
           <Button
             aria-expanded={open}
-            size="icon"
-            variant={"ghost"}
-            className="absolute top-4 left-4 md:hidden"
+            variant="ghost"
+            className={cn("absolute top-4 left-4", isFullScreenMode ? "block" : "md:hidden")}
           >
             {open ? <X /> : <Menu size={24} />}
           </Button>
-        </DialogTrigger>
-        <DialogContent className="top-[35%]">
-          <VisuallyHidden>
-            <DialogTitle>Character Selector</DialogTitle>
-          </VisuallyHidden>
-          <CharacterSelector onSelectAction={setSelectedCharacter} />
-        </DialogContent>
-      </Dialog>
+        </SheetTrigger>
+        <SheetContent side="left">
+          <div className="p-2 mt-16 flex flex-col gap-4">
+            {characters.map(character => (
+              <Card
+                key={character.id}
+                className={
+                  "cursor-pointer transition-all hover:ring-2 hover:ring-stone-300 flex items-center gap-2"
+                }
+                onClick={() => setSelectedCharacter(character)}
+              >
+                <div className="relative w-12 h-12">
+                  <Image
+                    src={character.avatar}
+                    alt={character.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h2 className="text-md font-medium">{character.name}</h2>
+              </Card>
+            ))}
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      <Button
+        variant={"ghost"}
+        className="absolute top-4 right-4 hidden md:block"
+        onClick={toggleFullScreenMode}
+      >
+        {isFullScreenMode ? <Minimize size={24} /> : <Maximize size={24} />}
+      </Button>
     </div>
   );
 }

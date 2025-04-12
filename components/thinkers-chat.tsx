@@ -4,10 +4,12 @@ import Chat from "./chat";
 import { useConversationStore } from "@/stores/useConversationStore";
 import { processMessages } from "@/lib/chat-processor";
 import useCharacterStore from "@/stores/useCharacterStore";
+import { useFullscreenStore } from "@/stores/useFullscreenStore";
 
-export default function ThinkersChat() {
+const ThinkersChat = () => {
   const { selectedCharacter } = useCharacterStore();
   const { addConversationItem, addChatMessage } = useConversationStore(selectedCharacter.id);
+  const { isFullScreenMode } = useFullscreenStore();
 
   const handleSendMessage = async (message: string) => {
     if (!message.trim()) return;
@@ -33,7 +35,9 @@ export default function ThinkersChat() {
 
   return (
     <div className="h-full p-2">
-      <Chat onSendMessage={handleSendMessage} />
+      <Chat onSendMessage={handleSendMessage} isFullScreenMode={isFullScreenMode} />
     </div>
   );
-}
+};
+
+export default ThinkersChat;

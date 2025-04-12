@@ -7,12 +7,14 @@ import Annotations from "./annotations";
 import useCharacterStore from "@/stores/useCharacterStore";
 import CharacterSelector from "@/components/character-selector";
 import { useConversationStore } from "@/stores/useConversationStore";
+import { cn } from "@/lib/utils";
 
 interface ChatProps {
   onSendMessage: (message: string) => void;
+  isFullScreenMode: boolean;
 }
 
-const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
+const Chat: React.FC<ChatProps> = ({ onSendMessage, isFullScreenMode }) => {
   const { selectedCharacter, setSelectedCharacter } = useCharacterStore();
   const { chatMessages } = useConversationStore(selectedCharacter.id);
   const itemsEndRef = useRef<HTMLDivElement>(null);
@@ -36,24 +38,28 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
     },
     [onSendMessage, inputMessageText, isComposing]
   );
-  
+
   useEffect(() => {
     scrollToBottom();
   }, [chatMessages]);
 
   return (
     <div className="flex h-full justify-center">
-      <div className="flex h-full w-full max-w-[940px]">
-        {/* Left sidebar */}
-        <div className="w-[320px] pr-4 hidden md:flex h-full">
-          <div className="overflow-y-auto h-full">
-            <CharacterSelector onSelectAction={setSelectedCharacter} />
+      <div className={cn("flex h-full w-full", isFullScreenMode ? "max-w-prose" : "max-w-[940px]")}>
+        {/*Left sidebar*/}
+        {!isFullScreenMode ? (
+          <div className="w-[320px] pr-4 hidden md:flex h-full">
+            <div className="overflow-y-auto h-full">
+              <div className="border-2 border-border rounded-lg flex flex-col gap-4 px-2 py-2 w-full h-full overflow-y-auto">
+                <CharacterSelector onSelectAction={setSelectedCharacter} />
+              </div>
+            </div>
           </div>
-        </div>
+        ) : null}
 
         {/* Chat area */}
         <div className="flex-1 flex flex-col border-2 border-border rounded-lg w-full">
-          <div className="border-b-2 border-border p-4 flex items-center gap-2">
+          <div className="border-b-2 border-border p-2 md:p-4 flex items-center gap-2">
             <div className="relative w-12 h-12">
               <Image
                 src={selectedCharacter.avatar}
@@ -62,7 +68,7 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
                 className="object-cover"
               />
             </div>
-            <h2 className="text-xl font-medium">{selectedCharacter.name}</h2>
+            <h2 className="text-md md:text-xl font-medium">{selectedCharacter.name}</h2>
           </div>
 
           {/* Messages */}
