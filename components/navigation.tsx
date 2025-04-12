@@ -16,7 +16,7 @@ export default function Navigation() {
 
   return (
     <nav className="w-full border-b border-border bg-[#F7F6F4]">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="mx-auto px-4">
         <div className="flex h-16 items-center">
           {/* Mobile Character Drawer */}
           <Sheet open={open} onOpenChange={setOpen}>
@@ -64,7 +64,7 @@ export default function Navigation() {
             </h1>
           </Link>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 pr-8">
             <Link
               href="/chat"
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"

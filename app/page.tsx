@@ -54,37 +54,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Features Section */}
-      <section className="bg-muted/50 py-4">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-serif font-bold text-center mb-8">
-            Why Chat with Great Thinkers?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-lg bg-background">
-              <h3 className="text-xl font-serif font-semibold mb-3">Historical Insights</h3>
-              <p className="text-muted-foreground">
-                Gain unique perspectives from some of history's most brilliant minds on topics that
-                matter to you.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg bg-background">
-              <h3 className="text-xl font-serif font-semibold mb-3">Intellectual Growth</h3>
-              <p className="text-muted-foreground">
-                Challenge your thinking and expand your knowledge through engaging conversations.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg bg-background">
-              <h3 className="text-xl font-serif font-semibold mb-3">AI-Powered Experience</h3>
-              <p className="text-muted-foreground">
-                Our advanced AI technology brings these historical figures to life in a realistic
-                and engaging way.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
