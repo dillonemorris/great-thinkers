@@ -12,13 +12,13 @@ export default function Home() {
         {/* Character Grid */}
         <div className="grid grid-cols-2 w-full md:w-1/2">
           {characters.map((character, index) => (
-            <div 
-              key={character.id} 
+            <div
+              key={character.id}
               className="relative aspect-square"
               style={{
-                marginRight: index % 2 === 0 ? '-32px' : '0',
-                marginLeft: index % 2 === 1 ? '-48px' : '0',
-                marginBottom: index < 2 ? '-48px' : '0'
+                marginRight: index % 2 === 0 ? "-32px" : "0",
+                marginLeft: index % 2 === 1 ? "-48px" : "0",
+                marginBottom: index < 2 ? "-48px" : "0",
               }}
             >
               <Image
@@ -33,22 +33,20 @@ export default function Home() {
 
         {/* Text Content */}
         <div className="w-full md:w-1/2 text-left">
-          <h1 className="text-5xl font-serif font-bold mb-6">
-            Chat with History's Greatest Minds
-          </h1>
+          <h1 className="text-5xl font-serif font-bold mb-6">Chat with History's Greatest Minds</h1>
           <p className="text-xl text-muted-foreground mb-8">
-            Engage in meaningful conversations with AI-powered versions of history's most influential thinkers. 
-            Experience their wisdom, perspectives, and insights firsthand.
+            Engage in meaningful conversations with AI-powered versions of history's most
+            influential thinkers. Experience their wisdom, perspectives, and insights firsthand.
           </p>
           <div className="flex gap-4">
             <Link href="/chat">
-              <Button size="lg" className="gap-2 bg-blue-950 text-white font-semibold">
+              <Button size="lg" className="gap-2 bg-blue-950 text-white font-semibold text-md">
                 <Sparkles className="h-4 w-4" />
                 Start a Conversation
               </Button>
             </Link>
             <Link href="/how-it-works">
-              <Button className="gap-2 text-blue-950" variant="ghost" size="lg">
+              <Button className="gap-2 text-blue-950 text-md" variant="ghost" size="lg">
                 See how it works
                 <MoveRight className="h-4 w-4" />
               </Button>
@@ -67,7 +65,8 @@ export default function Home() {
             <div className="p-6 rounded-lg bg-background">
               <h3 className="text-xl font-serif font-semibold mb-3">Historical Insights</h3>
               <p className="text-muted-foreground">
-                Gain unique perspectives from some of history's most brilliant minds on topics that matter to you.
+                Gain unique perspectives from some of history's most brilliant minds on topics that
+                matter to you.
               </p>
             </div>
             <div className="p-6 rounded-lg bg-background">
@@ -79,7 +78,8 @@ export default function Home() {
             <div className="p-6 rounded-lg bg-background">
               <h3 className="text-xl font-serif font-semibold mb-3">AI-Powered Experience</h3>
               <p className="text-muted-foreground">
-                Our advanced AI technology brings these historical figures to life in a realistic and engaging way.
+                Our advanced AI technology brings these historical figures to life in a realistic
+                and engaging way.
               </p>
             </div>
           </div>
