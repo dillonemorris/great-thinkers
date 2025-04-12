@@ -5,16 +5,13 @@ import Image from "next/image";
 import Message from "./message";
 import Annotations from "./annotations";
 import useCharacterStore from "@/stores/useCharacterStore";
-import CharacterSelector from "@/components/character-selector";
 import { useConversationStore } from "@/stores/useConversationStore";
-import { cn } from "@/lib/utils";
 
 interface ChatProps {
   onSendMessage: (message: string) => void;
-  isFullScreenMode: boolean;
 }
 
-const Chat: React.FC<ChatProps> = ({ onSendMessage, isFullScreenMode }) => {
+const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
   const { selectedCharacter, setSelectedCharacter } = useCharacterStore();
   const { chatMessages } = useConversationStore(selectedCharacter.id);
   const itemsEndRef = useRef<HTMLDivElement>(null);
@@ -45,18 +42,7 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage, isFullScreenMode }) => {
 
   return (
     <div className="flex h-full justify-center">
-      <div className={cn("flex h-full w-full", isFullScreenMode ? "max-w-prose" : "max-w-[940px]")}>
-        {/*Left sidebar*/}
-        {!isFullScreenMode ? (
-          <div className="w-[320px] pr-4 hidden md:flex h-full">
-            <div className="overflow-y-auto h-full">
-              <div className="border-2 border-border rounded-lg flex flex-col gap-4 px-2 py-2 w-full h-full overflow-y-auto">
-                <CharacterSelector onSelectAction={setSelectedCharacter} />
-              </div>
-            </div>
-          </div>
-        ) : null}
-
+      <div className={"flex h-full w-full max-w-screen-md"}>
         {/* Chat area */}
         <div className="flex-1 flex flex-col border-2 border-border rounded-lg w-full">
           <div className="border-b-2 border-border p-2 md:p-4 flex items-center gap-2">
