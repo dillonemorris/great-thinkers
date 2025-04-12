@@ -73,7 +73,11 @@ export default function Main() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left">
-          <div className="p-2 mt-16 flex flex-col gap-4">
+          <div className="p-2 mt-12 flex flex-col gap-4">
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles width={20} height={20} color="#78716c" />
+              <h1 className="font-serif text-xl tracking-tight font-medium">Great Thinkers</h1>
+            </div>
             {characters.map(character => (
               <Button
                 key={character.id}
