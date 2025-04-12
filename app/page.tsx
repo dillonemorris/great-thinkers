@@ -1,110 +1,62 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import ThinkersChat from "@/components/thinkers-chat";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import useCharacterStore from "@/stores/useCharacterStore";
-import { characters } from "@/config/characters";
-import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { VisuallyHidden } from "@reach/visually-hidden";
-import { Menu, Sparkles, X } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
-export default function Main() {
-  const [isHydrated, setIsHydrated] = React.useState(false);
-  const { setSelectedCharacter, selectedCharacter } = useCharacterStore();
-
-  React.useEffect(() => {
-    setIsHydrated(true);
-  }, []);
-
-  if (!isHydrated) {
-    return null;
-  }
-
+export default function Home() {
   return (
-    <div className="flex h-full w-full">
-      <div className="p-2 bg-[#e8e6e1] h-full w-[250px] z-10 hidden lg:flex">
-        <div className="mt-16 flex flex-col gap-2 w-full">
-          {characters.map(character => (
-            <Button
-              key={character.id}
-              variant="ghost"
-              onClick={() => setSelectedCharacter(character)}
-              className={cn(
-                "w-full flex cursor-pointer gap-2 justify-start pl-0 hover:bg-[#d9d7d0]",
-                selectedCharacter?.id === character.id ? "bg-[#d9d7d0]" : ""
-              )}
-            >
-              <div className="relative w-16 h-16">
-                <Image src={character.avatar} alt={character.name} fill className="object-cover" />
-              </div>
-              <h2 className="text-md font-medium">{character.name}</h2>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="flex-1 flex flex-col items-center justify-center px-4 py-16 text-center">
+        <h1 className="text-5xl font-serif font-bold mb-6">
+          Chat with History's Greatest Minds
+        </h1>
+        <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
+          Engage in meaningful conversations with AI-powered versions of history's most influential thinkers. 
+          Experience their wisdom, perspectives, and insights firsthand.
+        </p>
+        <div className="flex gap-4">
+          <Link href="/chat">
+            <Button size="lg" className="gap-2">
+              <Sparkles className="h-4 w-4" />
+              Start Chatting
             </Button>
-          ))}
+          </Link>
+          <Link href="/how-it-works">
+            <Button variant="outline" size="lg">
+              Learn More
+            </Button>
+          </Link>
         </div>
-      </div>
-      <main className="flex-1 flex flex-col">
-        <div className="lg:flex items-center gap-2 ml-5 mt-4 hidden">
-          <Sparkles width={24} height={24} color="#78716c" />
-          <h1 className="font-serif text-lg md:text-2xl tracking-tight font-medium">
-            Great Thinkers
-          </h1>
-        </div>
-        <div className="flex flex-col items-center max-w-3xl w-full h-[calc(100vh-140px)] m-auto">
-          <div className="flex-1 justify-center h-full">
-            <ThinkersChat />
+      </section>
+
+      {/* Features Section */}
+      <section className="bg-muted/50 py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-serif font-bold text-center mb-12">
+            Why Chat with Great Thinkers?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-6 rounded-lg bg-background">
+              <h3 className="text-xl font-semibold mb-3">Historical Insights</h3>
+              <p className="text-muted-foreground">
+                Gain unique perspectives from some of history's most brilliant minds on topics that matter to you.
+              </p>
+            </div>
+            <div className="p-6 rounded-lg bg-background">
+              <h3 className="text-xl font-semibold mb-3">Intellectual Growth</h3>
+              <p className="text-muted-foreground">
+                Challenge your thinking and expand your knowledge through engaging conversations.
+              </p>
+            </div>
+            <div className="p-6 rounded-lg bg-background">
+              <h3 className="text-xl font-semibold mb-3">AI-Powered Experience</h3>
+              <p className="text-muted-foreground">
+                Our advanced AI technology brings these historical figures to life in a realistic and engaging way.
+              </p>
+            </div>
           </div>
         </div>
-      </main>
-
-      <MobileDrawer />
+      </section>
     </div>
   );
 }
-
-const MobileDrawer = () => {
-  const [open, setOpen] = React.useState(false);
-  const { setSelectedCharacter, selectedCharacter } = useCharacterStore();
-
-  return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <VisuallyHidden>
-        <SheetTitle>Character Selector</SheetTitle>
-      </VisuallyHidden>
-      <SheetTrigger asChild>
-        <Button
-          aria-expanded={open}
-          variant="ghost"
-          className={"lg-hidden absolute top-2 ml[-8px]"}
-        >
-          {open ? <X /> : <Menu size={24} />}
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left">
-        <div className="p-2 mt-12 flex flex-col gap-4">
-          <div className="flex items-center gap-2 mb-4">
-            <Sparkles width={20} height={20} color="#78716c" />
-            <h1 className="font-serif text-xl tracking-tight font-medium">Great Thinkers</h1>
-          </div>
-          {characters.map(character => (
-            <Button
-              key={character.id}
-              variant="ghost"
-              onClick={() => setSelectedCharacter(character)}
-              className={cn(
-                "w-full flex cursor-pointer gap-2 justify-start pl-0 hover:bg-[#d9d7d0]",
-                selectedCharacter?.id === character.id ? "bg-[#d9d7d0]" : ""
-              )}
-            >
-              <div className="relative w-16 h-16">
-                <Image src={character.avatar} alt={character.name} fill className="object-cover" />
-              </div>
-              <h2 className="text-md font-medium">{character.name}</h2>
-            </Button>
-          ))}
-        </div>
-      </SheetContent>
-    </Sheet>
-  );
-};
