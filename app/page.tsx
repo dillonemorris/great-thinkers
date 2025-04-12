@@ -26,13 +26,7 @@ export default function Main() {
   return (
     <div className="flex h-full w-full">
       <div className="p-2 bg-[#e8e6e1] h-full w-[250px] z-10 hidden lg:flex">
-        <div className="mt-8 flex flex-col gap-2 w-full">
-          <div className="flex items-center gap-2 mb-8">
-            <Sparkles width={24} height={24} color="#78716c" />
-            <h1 className="font-serif text-lg md:text-2xl tracking-tight font-medium">
-              Great Thinkers
-            </h1>
-          </div>
+        <div className="mt-16 flex flex-col gap-2 w-full">
           {characters.map(character => (
             <Button
               key={character.id}
@@ -51,9 +45,15 @@ export default function Main() {
           ))}
         </div>
       </div>
-      <main className="flex-1 flex h-[85vh] lg:ml-[-160px] m-auto justify-center">
-        <div className="flex h-full flex-col items-center max-w-3xl w-full">
-          <div className="flex-1 w-full h-[calc(100vh-320px)]">
+      <main className="flex-1 flex flex-col">
+        <div className="flex items-center gap-2 ml-5 mt-4">
+          <Sparkles width={24} height={24} color="#78716c" />
+          <h1 className="font-serif text-lg md:text-2xl tracking-tight font-medium">
+            Great Thinkers
+          </h1>
+        </div>
+        <div className="flex flex-col items-center max-w-3xl w-full h-[calc(100vh-140px)] m-auto">
+          <div className="flex-1 justify-center h-full">
             <ThinkersChat />
           </div>
         </div>
