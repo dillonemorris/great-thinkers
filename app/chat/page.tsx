@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@reach/visually-hidden";
 import { Menu, Sparkles, X } from "lucide-react";
+import Link from "next/link";
 
 export default function Main() {
   const [isHydrated, setIsHydrated] = React.useState(false);
@@ -45,12 +46,12 @@ export default function Main() {
         </div>
       </div>
       <main className="flex-1 flex flex-col">
-        <div className="lg:flex items-center gap-2 ml-5 mt-4 hidden">
+        <Link href="/" className="lg:flex items-center gap-2 ml-6 mt-4 hidden w-fit">
           <Sparkles width={24} height={24} color="#78716c" />
           <h1 className="font-serif text-lg md:text-2xl tracking-tight font-medium">
             Great Thinkers
           </h1>
-        </div>
+        </Link>
         <div className="flex flex-col items-center max-w-3xl w-full h-[calc(100vh-140px)] m-auto">
           <div className="flex-1 justify-center h-full">
             <ThinkersChat />
