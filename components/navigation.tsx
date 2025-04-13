@@ -16,7 +16,7 @@ export default function Navigation() {
 
   return (
     <nav className="w-full border-b border-border bg-[#F7F6F4]">
-      <div className="mx-auto px-4">
+      <div className="mx-auto md:px-4">
         <div className="flex h-16 items-center">
           {/* Mobile Character Drawer */}
           <Sheet open={open} onOpenChange={setOpen}>
@@ -31,6 +31,7 @@ export default function Navigation() {
             <SheetContent side="left">
               <div className="p-2 mt-12 flex flex-col gap-4">
                 <div className="flex items-center gap-2 mb-4">
+                  <Sparkles width={24} height={24} className="text-muted-foreground" />
                   <h1 className="font-serif text-xl tracking-tight font-medium">Great Thinkers</h1>
                 </div>
                 {characters.map(character => (

@@ -22,7 +22,7 @@ export default function Main() {
   return (
     <div className="flex h-[calc(100vh-4rem)] w-full">
       <div className="p-2 bg-[#e8e6e1] h-full w-[250px] z-10 hidden lg:flex">
-        <div className="mt-16 flex flex-col gap-2 w-full">
+        <div className="mt-8 flex flex-col gap-2 w-full">
           {characters.map(character => (
             <Button
               key={character.id}
@@ -42,7 +42,7 @@ export default function Main() {
         </div>
       </div>
       <main className="flex-1 flex flex-col">
-        <div className="flex flex-col items-center max-w-3xl w-full h-[calc(100vh-140px)] m-auto">
+        <div className="flex flex-col items-center max-w-3xl w-full h-[calc(100vh-140px)] m-auto mt-2.5 lg:mt-auto">
           <div className="flex-1 justify-center h-full">
             <ThinkersChat />
           </div>

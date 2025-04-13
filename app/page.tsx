@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="flex-1 flex flex-col md:flex-row items-center justify-center px-4 gap-12 max-w-7xl mx-auto">
+      <section className="flex-1 flex flex-col md:flex-row items-center justify-center px-4 md:gap-12 max-w-7xl mx-auto mb-20">
         {/* Character Grid */}
         <div className="grid grid-cols-2 w-full md:w-1/2">
           {characters.map((character, index) => (
@@ -18,7 +18,7 @@ export default function Home() {
               style={{
                 marginRight: index % 2 === 0 ? "-32px" : "0",
                 marginLeft: index % 2 === 1 ? "-48px" : "0",
-                marginBottom: index < 2 ? "-48px" : "0",
+                marginTop: index >= 2 ? "-48px" : "0",
               }}
             >
               <Image
@@ -33,8 +33,10 @@ export default function Home() {
 
         {/* Text Content */}
         <div className="w-full md:w-1/2 text-left">
-          <h1 className="text-5xl font-serif font-bold mb-6">Chat with History's Greatest Minds</h1>
-          <p className="text-xl text-muted-foreground mb-8">
+          <h1 className="text-3xl md:text-5xl font-serif font-bold mb-2 md:mb-6">
+            Chat with History's Greatest Minds
+          </h1>
+          <p className="text-md md:text-xl text-muted-foreground mb-6 md:mb-12">
             Engage in meaningful conversations with AI-powered versions of history's most
             influential thinkers. Experience their wisdom, perspectives, and insights firsthand.
           </p>
