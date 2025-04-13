@@ -44,8 +44,8 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
     <div className="flex h-full justify-center">
       <div className={"flex h-full w-full max-w-screen-md"}>
         {/* Chat area */}
-        <div className="flex-1 flex flex-col border-2 border-border rounded-lg w-full">
-          <div className="border-b-2 border-border p-2 md:p-4 flex items-center gap-2">
+        <div className="flex-1 flex flex-col border border-border rounded-lg w-full">
+          <div className="border-b border-border p-2 md:p-4 flex items-center gap-2">
             <div className="relative w-12 h-12">
               <Image
                 src={selectedCharacter.avatar}
@@ -73,7 +73,7 @@ const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
           </div>
 
           {/* Input area */}
-          <div className="border-t-2 border-border p-4">
+          <div className="border-t border-border p-4">
             {!hasUserSentMessage ? (
               <ConversationStarters onConversationStartClick={setinputMessageText} />
             ) : null}

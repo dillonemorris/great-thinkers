@@ -20,7 +20,7 @@ export default function Main() {
   }
 
   return (
-    <div className="flex h-full w-full">
+    <div className="flex h-[calc(100vh-4rem)] w-full">
       <div className="p-2 bg-[#e8e6e1] h-full w-[250px] z-10 hidden lg:flex">
         <div className="mt-16 flex flex-col gap-2 w-full">
           {characters.map(character => (

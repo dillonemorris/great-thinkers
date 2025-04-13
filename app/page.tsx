@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="flex-1 flex flex-col md:flex-row items-center justify-center px-4 pt-16 gap-12 max-w-7xl mx-auto">
+      <section className="flex-1 flex flex-col md:flex-row items-center justify-center px-4 gap-12 max-w-7xl mx-auto">
         {/* Character Grid */}
         <div className="grid grid-cols-2 w-full md:w-1/2">
           {characters.map((character, index) => (

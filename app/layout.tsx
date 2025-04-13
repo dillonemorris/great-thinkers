@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${fraunces.variable} font-sans antialiased`}>
         <Navigation />
-        <div className="flex h-[calc(100vh-4rem)] bg-[#F7F6F4] w-full items-center justify-center text-stone-900">
+        <div className="flex bg-[#F7F6F4] w-full items-center justify-center text-stone-900">
           {children}
         </div>
       </body>
