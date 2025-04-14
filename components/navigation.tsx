@@ -67,16 +67,16 @@ export default function Navigation() {
 
           <div className="flex items-center gap-6 pr-8">
             <Link
-              href="/chat"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Chat
-            </Link>
-            <Link
               href="/how-it-works"
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               How It Works
+            </Link>
+            <Link href="/chat">
+              <Button className="gap-2 bg-blue-950 text-white font-medium px-4 py-2">
+                <Sparkles className="h-4 w-4" />
+                Chat
+              </Button>
             </Link>
           </div>
         </div>

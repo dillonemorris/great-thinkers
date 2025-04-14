@@ -36,17 +36,6 @@ const sampleChats: SampleChats = {
   }
 };
 
-type Specialties = {
-  [key: string]: string;
-};
-
-const specialties: Specialties = {
-  einstein: "Physics & Relativity",
-  curie: "Radioactivity & Chemistry",
-  plato: "Philosophy & Ethics",
-  douglass: "Freedom & Social Justice"
-};
-
 type CharacterProfile = {
   expertise: string;
   description: string;

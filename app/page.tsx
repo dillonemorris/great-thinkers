@@ -34,10 +34,10 @@ export default function Home() {
         {/* Text Content */}
         <div className="w-full md:w-1/2 text-left">
           <h1 className="text-3xl md:text-5xl font-serif font-bold mb-2 md:mb-6">
-            Chat with History's Greatest Minds
+            Chat with History&apos;s Greatest Minds
           </h1>
           <p className="text-md md:text-xl text-muted-foreground mb-6 md:mb-12">
-            Engage in meaningful conversations with AI-powered versions of history's most
+            Engage in meaningful conversations with AI-powered versions of history&apos;s most
             influential thinkers. Experience their wisdom, perspectives, and insights firsthand.
           </p>
           <div className="flex gap-4">
@@ -48,8 +48,8 @@ export default function Home() {
               </Button>
             </Link>
             <Link href="/how-it-works">
-              <Button className="gap-2 text-blue-950 text-md" variant="ghost" size="lg">
-                See how it works
+              <Button size="lg" variant="outline" className="gap-2 font-semibold text-md">
+                How It Works
                 <MoveRight className="h-4 w-4" />
               </Button>
             </Link>

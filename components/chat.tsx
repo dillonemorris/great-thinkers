@@ -12,7 +12,7 @@ interface ChatProps {
 }
 
 const Chat: React.FC<ChatProps> = ({ onSendMessage }) => {
-  const { selectedCharacter, setSelectedCharacter } = useCharacterStore();
+  const { selectedCharacter } = useCharacterStore();
   const { chatMessages } = useConversationStore(selectedCharacter.id);
   const itemsEndRef = useRef<HTMLDivElement>(null);
   const [inputMessageText, setinputMessageText] = useState<string>("");
