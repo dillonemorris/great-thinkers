@@ -18,10 +18,19 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: {
     default: "Great Thinkers",
-    template: "%s | Great Thinkers"
+    template: "%s | Great Thinkers",
   },
-  description: "Chat with AI versions of history's greatest minds. Engage in conversations with historical figures and explore their perspectives on modern topics.",
-  keywords: ["AI", "chat", "history", "great thinkers", "historical figures", "conversation", "education"],
+  description:
+    "Chat with AI versions of history's greatest minds. Engage in conversations with historical figures and explore their perspectives on modern topics.",
+  keywords: [
+    "AI",
+    "chat",
+    "history",
+    "great thinkers",
+    "historical figures",
+    "conversation",
+    "education",
+  ],
   authors: [{ name: "Great Thinkers Team" }],
   creator: "Great Thinkers",
   publisher: "Great Thinkers",
@@ -30,7 +39,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://great-thinkers.vercel.app'),
+  metadataBase: new URL("https://great-thinkers.vercel.app"),
   openGraph: {
     title: "Great Thinkers",
     description: "Chat with AI versions of history's greatest minds",
@@ -60,13 +69,13 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
@@ -76,11 +85,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${fraunces.variable} font-sans antialiased`}>
