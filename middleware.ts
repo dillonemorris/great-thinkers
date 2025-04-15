@@ -11,7 +11,7 @@ const ratelimit = new Ratelimit({
 
 export async function middleware(request: NextRequest) {
   // Get the IP address of the request
-  const ip = request.ip ?? '127.0.0.1'
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ?? '127.0.0.1'
   
   // Check if the request is for the API route
   if (request.nextUrl.pathname.startsWith('/api/')) {

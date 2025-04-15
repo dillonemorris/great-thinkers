@@ -1,0 +1,14 @@
+{
+  "name": "Great Thinkers",
+  "short_name": "Great Thinkers",
+  "description": "Chat with AI versions of history's greatest minds",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F6F4",
+  "theme_color": "#000000",
+  "icons": {
+    "icon": "/favicon.ico",
+    "shortcut": "/favicon-96x96.png",
+    "apple": "/apple-touch-icon.png"
+  }
+} 

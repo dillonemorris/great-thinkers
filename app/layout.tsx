@@ -16,10 +16,63 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Great Thinkers",
-  description: "Chat with AI versions of history's greatest minds",
+  title: {
+    default: "Great Thinkers",
+    template: "%s | Great Thinkers"
+  },
+  description: "Chat with AI versions of history's greatest minds. Engage in conversations with historical figures and explore their perspectives on modern topics.",
+  keywords: ["AI", "chat", "history", "great thinkers", "historical figures", "conversation", "education"],
+  authors: [{ name: "Great Thinkers Team" }],
+  creator: "Great Thinkers",
+  publisher: "Great Thinkers",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://great-thinkers.vercel.app'),
+  openGraph: {
+    title: "Great Thinkers",
+    description: "Chat with AI versions of history's greatest minds",
+    url: "https://great-thinkers.vercel.app",
+    siteName: "Great Thinkers",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Great Thinkers - Chat with History's Greatest Minds",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Great Thinkers",
+    description: "Chat with AI versions of history's greatest minds",
+    images: ["/og-image.png"],
+    creator: "@greatthinkers",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
-    icon: "logo.svg",
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+  verification: {
+    google: "your-google-site-verification",
   },
 };
 
