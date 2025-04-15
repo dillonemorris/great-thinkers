@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/navigation";
+import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,9 +25,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${fraunces.variable} font-sans antialiased`}>
@@ -33,6 +35,8 @@ export default function RootLayout({
         <div className="flex bg-[#F7F6F4] w-full items-center justify-center text-stone-900">
           {children}
         </div>
+        <Toaster position="top-center" />
+        <Analytics />
       </body>
     </html>
   );

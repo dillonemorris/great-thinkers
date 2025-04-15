@@ -88,18 +88,14 @@ export const processMessages = async () => {
   ];
 
   let assistantMessageContent = "";
+  let currentMessageId: string | undefined;
 
-  await handleTurn(allConversationItems, async ({ event, data }) => {
-    switch (event) {
-      case "response.output_text.delta":
-      case "response.output_text.annotation.added": {
-        const { delta, item_id, annotation } = data;
-
-        let partial = "";
-        if (typeof delta === "string") {
-          partial = delta;
-        }
-        assistantMessageContent += partial;
+  try {
+    await handleTurn(allConversationItems, async ({ event, data }) => {
+      if (event === "response.output_text.delta") {
+        const { delta, item_id } = data;
+        assistantMessageContent += delta;
+        currentMessageId = item_id;
 
         // If the last message isn't an assistant message, create a new one
         const lastItem = chatMessages[chatMessages.length - 1];
@@ -107,7 +103,7 @@ export const processMessages = async () => {
           !lastItem ||
           lastItem.type !== "message" ||
           lastItem.role !== "assistant" ||
-          (lastItem.id && lastItem.id !== item_id)
+          (lastItem.id && lastItem.id !== currentMessageId)
         ) {
           store.setState({
             chatMessages: [
@@ -115,7 +111,7 @@ export const processMessages = async () => {
               {
                 type: "message",
                 role: "assistant",
-                id: item_id,
+                id: currentMessageId,
                 content: [
                   {
                     type: "output_text",
@@ -129,48 +125,42 @@ export const processMessages = async () => {
           const contentItem = lastItem.content[0];
           if (contentItem && contentItem.type === "output_text") {
             contentItem.text = assistantMessageContent;
-            if (annotation) {
-              contentItem.annotations = [...(contentItem.annotations ?? []), annotation];
-            }
             store.setState({ chatMessages: [...chatMessages] });
           }
         }
-        break;
       }
+    });
 
-      case "response.output_item.added": {
-        const { item } = data || {};
-        if (!item || !item.type) {
-          break;
-        }
-        const text = item.content?.text || "";
-        store.setState({
-          chatMessages: [
-            ...chatMessages,
-            {
-              type: "message",
-              role: "assistant",
-              content: [{ type: "output_text", text }],
-            },
-          ],
-          conversationItems: [
-            ...conversationItems,
-            {
-              role: "assistant",
-              content: [{ type: "output_text", text }],
-            },
-          ],
-        });
-        break;
-      }
-
-      case "response.output_item.done": {
-        const { item } = data || {};
-        store.setState({
-          conversationItems: [...conversationItems, item],
-        });
-        break;
-      }
+    // Add the final message to conversation items
+    if (assistantMessageContent) {
+      store.setState({
+        conversationItems: [
+          ...conversationItems,
+          {
+            role: "assistant",
+            content: assistantMessageContent,
+          },
+        ],
+      });
     }
-  });
+  } catch (error) {
+    // Add error message to chat
+    store.setState({
+      chatMessages: [
+        ...chatMessages,
+        {
+          type: "message",
+          role: "assistant",
+          content: [
+            {
+              type: "output_text",
+              text: "I apologize, but I encountered an error while processing your request. Please try again.",
+            },
+          ],
+        },
+      ],
+    });
+    throw error; // Re-throw to be handled by the UI
+  }
 };
+
